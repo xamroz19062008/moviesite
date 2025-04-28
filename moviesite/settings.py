@@ -2,9 +2,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'your-secret-key'
+SECRET_KEY = 'django-insecure-4+3d1#fajfakfjie$euh@fie'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
