@@ -1,0 +1,204 @@
+
+
+body {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 138, 101, 0.2) 0%, rgba(18, 18, 18, 1) 70%), 
+                radial-gradient(circle at 70% 70%, rgba(255, 202, 40, 0.15) 0%, rgba(18, 18, 18, 1) 70%);
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    animation: moveBackground 20s linear infinite;
+    color: #E0E0E0;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-position 0.2s ease;
+}
+
+header {
+    margin-top: 50px;
+    text-align: center;
+    animation: fadeInDown 1s ease forwards;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FFA726;
+}
+
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+.movie-card {
+    background: #1E1E1E;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.5s, box-shadow 0.5s;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    min-height: 450px;
+}
+
+.movie-card:hover {
+    transform: rotateY(5deg) rotateX(5deg) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:nth-child(1) { animation-delay: 0.2s; }
+.movie-card:nth-child(2) { animation-delay: 0.4s; }
+.movie-card:nth-child(3) { animation-delay: 0.6s; }
+.movie-card:nth-child(4) { animation-delay: 0.8s; }
+.movie-card:nth-child(5) { animation-delay: 1s; }
+
+.movie-poster {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.movie-card h2 {
+    font-size: 1.5rem;
+    color: #FFA726;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.movie-card p {
+    font-size: 1rem;
+    color: #CCCCCC;
+    margin-bottom: auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.watch-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #FFA726;
+    color: #121212;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 20px;
+}
+
+.watch-button:hover {
+    background-color: #FB8C00;
+    transform: scale(1.05);
+}
+
+.movie-details {
+    text-align: center;
+}
+
+.movie-details h1 {
+    color: #FFA726;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.movie-poster-large {
+    width: 300px;
+    border-radius: 16px;
+    margin: 20px 0;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+@keyframes moveBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.interstellar-bg {
+    background: radial-gradient(circle at center, #0d1b2a 0%, #000000 100%);
+    background-size: 400% 400%;
+    animation: moveSpace 30s ease infinite;
+}
+
+.greenbook-bg {
+    background: radial-gradient(circle at center, #a8d5ba 0%, #1b5e20 100%);
+    background-size: 400% 400%;
+    animation: moveGreen 30s ease infinite;
+}
+
+.lordofwar-bg {
+    background: radial-gradient(circle at center, #5c3d2e 0%, #1b1b1b 100%);
+    background-size: 400% 400%;
+    animation: moveWar 30s ease infinite;
+}
+
+@keyframes moveSpace {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes moveGreen {
+    0% { background-position: 50% 0%; }
+    50% { background-position: 50% 100%; }
+    100% { background-position: 50% 0%; }
+}
+
+@keyframes moveWar {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+.stars {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: transparent url("{% static 'films/stars.png' %}") repeat;
+    background-size: cover;
+    animation: moveStars 100s linear infinite;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+@keyframes moveStars {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(100px, 100px); }
+}
+
+.overlay {
+    position: relative;
+    z-index: 1;
+}

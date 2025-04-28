@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильмы Онлайн</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'films/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1 id="animated-title">🎬 Смотреть фильмы онлайн</h1>
+    </header>
+
+    <div class="filter">
+        <label for="genre-select">Фильтр по жанру:</label>
+        <select id="genre-select">
+            <option value="all">Все</option>
+            <option value="Фантастика">Фантастика</option>
+            <option value="Драма">Драма</option>
+            <option value="Триллер">Триллер</option>
+        </select>
+    </div>
+
+    <section class="movies">
+        {% for movie in movies %}
+        <div class="movie-card" data-genre="{{ movie.genre }}">
+            <img src="{% static movie.poster %}" alt="{{ movie.title }}" class="movie-poster">
+            <h2>{{ movie.title }}</h2>
+            <p>{{ movie.description }}</p>
+            <a href="{% url 'movie_detail' movie.id %}" class="watch-button">Смотреть</a>
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Скрипт для фильтрации фильмов по жанру -->
+    <script>
+        document.getElementById('genre-select').addEventListener('change', function() {
+            const genre = this.value;
+            const cards = document.querySelectorAll('.movie-card');
+
+            cards.forEach(card => {
+                const cardGenre = card.getAttribute('data-genre');
+                if (genre === 'all' || cardGenre === genre) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- Скрипт анимации заголовка с правильной обработкой пробелов -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('animated-title');
+            const text = title.innerText;
+            title.innerHTML = '';
+
+            [...text].forEach((letter, index) => {
+                const span = document.createElement('span');
+                if (letter === ' ') {
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = letter;
+                }
+                span.style.opacity = 0;
+                span.style.display = 'inline-block';
+                span.style.transform = 'translateY(20px)';
+                span.style.transition = `all 0.5s ease ${index * 0.05}s`;
+                title.appendChild(span);
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('#animated-title span').forEach(span => {
+                    span.style.opacity = 1;
+                    span.style.transform = 'translateY(0)';
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

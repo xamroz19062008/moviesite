@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'films/style.css' %}">
+    <style>
+        body {
+            {% if movie.background_image %}
+                background: url("{% static movie.background_image %}") center/cover no-repeat fixed;
+                background-size: cover;
+            {% elif movie.background_class == 'interstellar-bg' %}
+                background: radial-gradient(circle at center, #0d1b2a 0%, #000000 100%);
+                background-size: 400% 400%;
+                animation: moveSpace 30s ease infinite;
+            {% else %}
+                background: radial-gradient(circle at 30% 30%, rgba(255, 138, 101, 0.2) 0%, rgba(18, 18, 18, 1) 70%), 
+                            radial-gradient(circle at 70% 70%, rgba(255, 202, 40, 0.15) 0%, rgba(18, 18, 18, 1) 70%);
+                background-repeat: no-repeat;
+                background-size: 200% 200%;
+                animation: moveBackground 20s linear infinite;
+            {% endif %}
+            color: #E0E0E0;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Анимированные звезды для Интерстеллара */
+        .stars {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: transparent url("{% static 'films/stars.png' %}") repeat;
+            background-size: cover;
+            animation: moveStars 100s linear infinite;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        @keyframes moveStars {
+            0% {transform: translate(0, 0);}
+            100% {transform: translate(100px, 100px);}
+        }
+
+        /* Слой для затемнения контента */
+        .overlay {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    {% if movie.background_class == 'interstellar-bg' %}
+    <div class="stars"></div>  <!-- Звезды только для Интерстеллара -->
+    {% endif %}
+
+    <div class="movie-details overlay">
+        <h1>{{ movie.title }}</h1>
+        <img src="{% static movie.poster %}" alt="{{ movie.title }}" class="movie-poster-large">
+        <p>{{ movie.description }}</p>
+
+        <div class="buttons">
+            <a href="{{ movie.trailer_url }}" target="_blank" class="watch-button">▶ Смотреть трейлер</a>
+            <a href="{{ movie.movie_url }}" target="_blank" class="watch-button">🎬 Смотреть фильм</a>
+        </div>
+
+        <br>
+        <a href="{% url 'home' %}" class="watch-button">← Назад</a>
+    </div>
+
+    <!-- Скрипт для параллакса -->
+    <script>
+    document.addEventListener('mousemove', function(e) {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        document.body.style.backgroundPosition = `${x}% ${y}%`;
+    });
+    </script>
+
+</body>
+</html>
